@@ -1,0 +1,15 @@
+·        Alternating start player:  There’s an advantage to being the starting player, so the app should alternate who starts (human or computer).
+
+·        Variable Computer Difficulty:  It can be frustrating for a player to go up against an optimal player all the time.  The first time I released an optimal Pig app with a student on iTunes, people (1) complained that it was too hard, and (2) figured the computer player must be cheating.  One user claimed to have lost 40 games straight.  That’s wearisome for such bad players.  One solution is to engineer different levels of computer player skill:
+
+o   Difficult = optimal
+
+o   Medium = maximizing turn total. Rolling either 5 or 6 dice maximizes expected score gain per turn, so creating a computer opponent that does some mix (e.g. 5 when even or ahead, 6 when behind) is a reasonable medium player an novice could copy. (8.0375144 expected points/turn)
+
+o   Easy = suboptimal play, e.g. rolling 4 (7.71 pts/turn) or 3 (6.94 pts/turn) would be one possible path.
+
+o   Another possible path for Medium/Easy would be to calculate the behavior of a player that pays a utility penalty for getting no points and balances this against an optimal player’s desire for winning.  Thus, such a player’s play could be continuously tuned between prioritizing fear of a 1 roll versus prioritizing win probability.  I’ve drafted such a player class this afternoon.  It is attached as RiskAverseHogSolver.java.  The key tuning parameter is winWeight.  When winWeight = 1.0, it is optimal.  As you back off from 1 (e.g. .95), you can start to see fear gripping the player’s behavior.  At 0.9, the player is a wuss, taking chances only in some interesting circumstances.  I haven’t taken a close look at the behaviors or playtested them, but they’re at least more interesting than a uniform play policy.
+
+·        Cache play policies: There’s no reason to recompute the computer policies you use each time.  These should be stored and reused.  The most natural data structure is an array indexed by player score and opponent score (int[][] dice in HogSolver) for looking up how many dice to roll in that circumstance.
+
+·        There’s a lot of room for creative GUI design.  The key principle: Make it an app you’d want to play again and again.  If any feature becomes annoying to you in testing (e.g. sound, timing delays, etc.) be sensitive to it and make it the app you’d love to play.  It doesn’t have to be complex to be engaging.
