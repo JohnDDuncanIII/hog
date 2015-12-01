@@ -1,3 +1,4 @@
+package edu.gettysburg.hog;
 import java.util.Scanner;
 
 /**

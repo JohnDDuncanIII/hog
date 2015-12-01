@@ -1,4 +1,4 @@
-package edu.gettysburg.pig;
+package edu.gettysburg.hog;
 
 import java.util.HashMap;
 import java.util.Random;
