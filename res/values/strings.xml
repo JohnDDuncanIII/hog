@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-   <string name="app_name">Pig</string>
-   <string name="action_settings">Settings</string>
-   <string name="hello_world">Hello world!</string>
-   <string name="your_score">Your Score:</string>
-   <string name="my_score">My Score:</string>
-   <string name="turn_total">Turn Total:</string>
-   <string name="roll">Roll</string>
-   <string name="hold">Hold</string>
-   <string name="zero">0</string>     
-   <color name="black">#000000</color>
-   <color name="white">#ffffff</color>
-   
+    <string name="app_name">Hog</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
 </resources>
