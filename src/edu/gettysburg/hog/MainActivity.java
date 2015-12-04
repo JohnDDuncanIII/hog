@@ -6,9 +6,13 @@ import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.SynchronousQueue;
@@ -107,10 +110,19 @@ public class MainActivity extends AppCompatActivity {
     Random rand = new Random();
 
     /**
+     * Difficulty level for the human player. Higher level corresponds to better computer AI
+     */
+    private String difficulLevel = "Easy";
+
+    /**
      * Screen width and height in pixels.
      */
     private int width, height;
 
+    /**
+     * Drawer layout for settings
+     */
+    private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         rollButton = ((ImageButton) findViewById(R.id.rollButton));
 
         imageGrid = ((GridLayout) findViewById(R.id.image_grid));
+        //TODO: change imageGrid parameter so that the views start showing from left rather than center
 
         spinner = (Spinner) findViewById(R.id.roll_spinner);
 
@@ -168,11 +181,54 @@ public class MainActivity extends AppCompatActivity {
         width = p.x;
         height = p.y;
 
+        System.out.println("SupportActionBar height: " + getSupportActionBar().getHeight());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.drawericon);
+        // setup drawer
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+
+        drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle(R.string.drawer_title);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                getSupportActionBar().setTitle(R.string.app_name);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
         resetGrid();
 
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+
+                drawerLayout.closeDrawers();
+            }
+            else {
+
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void roll(int numRolls)
     {
         setButtonsState(false);
@@ -199,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeTurn() {
-        if(userScore > GOAL || computerScore > GOAL)
+        if(userScore >= GOAL || computerScore >= GOAL)
         {
             endGame();
         }
@@ -207,8 +263,9 @@ public class MainActivity extends AppCompatActivity {
         {
             isUserTurn = !isUserTurn;
             setButtonsState(isUserTurn);
-            if (!isUserTurn)
+            if (!isUserTurn) {
                 computerTurn();
+            }
         }
     }
 
@@ -267,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void endGame() {
         String message = (!isUserTurn)
-                ? String.format("I win %d to %d.", computerScore, userScore)
+                ? String.format("Computer won %d to %d.", computerScore, userScore)
                 : String.format("You win %d to %d.", userScore, computerScore);
         message += "  Would you like to play again?";
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -284,6 +341,9 @@ public class MainActivity extends AppCompatActivity {
                         if(!isUserTurn) {
                             computerTurn();
 
+                        }
+                        else{
+                            resetGrid();
                         }
                         dialog.cancel();
                     }
@@ -445,9 +505,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).start();
-
-
     }
+
 
 
 }

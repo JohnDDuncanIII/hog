@@ -1,9 +1,12 @@
 <resources>
-    <string name="app_name">HogGame</string>
+    <string name="app_name">Hog Game</string>
     <string name="your_score">Your Score</string>
     <string name="computer_score">Computer Score</string>
     <string name="zero">0</string>
     <string name="turn_total">Turn Total</string>
+    <string name="open_drawer">Open Settings</string>
+    <string name="close_drawer">Close Settings</string>
+    <string name="drawer_title">Settings</string>
     <string-array name="roll_array">
         <item>1 die</item>
         <item>2 dice</item>
