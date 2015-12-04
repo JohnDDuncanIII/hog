@@ -1,8 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">HogGame</string>
+    <string name="your_score">Your Score</string>
+    <string name="computer_score">Computer Score</string>
+    <string name="zero">0</string>
+    <string name="turn_total">Turn Total</string>
+    <string-array name="roll_array">
+        <item>1 die</item>
+        <item>2 dice</item>
+        <item>3 Dice </item>
+        <item>4 Dice </item>
+        <item>5 Dice </item>
+        <item>6 Dice </item>
+        <item>7 Dice </item>
+        <item>8 Dice </item>
+        <item>9 Dice </item>
+        <item>10 Dice </item>
+        <item>11 Dice </item>
+        <item>12 Dice </item>
+        <item>13 Dice </item>
+        <item>14 Dice </item>
+        <item>15 Dice </item>
+        <item>16 Dice </item>
+        <item>17 Dice </item>
+        <item>18 Dice </item>
+        <item>19 Dice </item>
+        <item>20 Dice </item>
+        <item>21 Dice </item>
+        <item>22 Dice </item>
+        <item>23 Dice </item>
+        <item>24 Dice </item>
+        <item>25 Dice </item>
 
-    <string name="app_name">Hog</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
+
+
+
+    </string-array>
 </resources>
