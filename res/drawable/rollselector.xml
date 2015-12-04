@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false" android:drawable="@drawable/rolldisabled" />
+    <item android:state_pressed="true" android:state_enabled="true"
+        android:drawable="@drawable/rollpressed" />
+    <item android:state_focused="true" android:state_enabled="true"
+        android:drawable="@drawable/roll" />
+    <item android:state_enabled="true" android:drawable="@drawable/roll" />
+
+</selector>

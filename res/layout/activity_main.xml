@@ -111,7 +111,7 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:id="@+id/rollButton"
-            android:background="@drawable/roll"/>
+            android:background="@drawable/rollselector"/>
         <Spinner
             android:id="@+id/roll_spinner"
             android:layout_width="wrap_content"

@@ -2008,11 +2008,14 @@ containing a value of this type.
         public static final int die5=0x7f02004a;
         public static final int die6=0x7f02004b;
         public static final int ic_launcher=0x7f02004c;
-        public static final int notification_template_icon_bg=0x7f020051;
+        public static final int notification_template_icon_bg=0x7f020054;
         public static final int roll=0x7f02004d;
         public static final int roll_small=0x7f02004e;
-        public static final int selectnroll=0x7f02004f;
-        public static final int selectnrollnew=0x7f020050;
+        public static final int rolldisabled=0x7f02004f;
+        public static final int rollpressed=0x7f020050;
+        public static final int rollselector=0x7f020051;
+        public static final int selectnroll=0x7f020052;
+        public static final int selectnrollnew=0x7f020053;
     }
     public static final class id {
         public static final int action0=0x7f090059;

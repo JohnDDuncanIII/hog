@@ -450,11 +450,14 @@ int drawable die4 0x7f020049
 int drawable die5 0x7f02004a
 int drawable die6 0x7f02004b
 int drawable ic_launcher 0x7f02004c
-int drawable notification_template_icon_bg 0x7f020051
+int drawable notification_template_icon_bg 0x7f020054
 int drawable roll 0x7f02004d
 int drawable roll_small 0x7f02004e
-int drawable selectnroll 0x7f02004f
-int drawable selectnrollnew 0x7f020050
+int drawable rolldisabled 0x7f02004f
+int drawable rollpressed 0x7f020050
+int drawable rollselector 0x7f020051
+int drawable selectnroll 0x7f020052
+int drawable selectnrollnew 0x7f020053
 int id action0 0x7f090059
 int id action_bar 0x7f090041
 int id action_bar_activity_content 0x7f090003
