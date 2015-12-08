@@ -167,7 +167,7 @@
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="10dp"
-            android:max="5000"
+            android:max="1500"
             android:progress="0" />
 
         <Button
