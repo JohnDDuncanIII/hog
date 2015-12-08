@@ -1,6 +1,12 @@
+12/7 - early
 added splash screen
 added ai files
 added seekbar in the drawer view to choose animation delay
 added a thread to compute computer AI
 	while it is computing, program uses a simply policy between 4 to 6 rolls
 writes the computed data policy out to a file (easy/medium/hard.dat), and reads it in the next time
+
+12/7 - night
+added textview to drawer
+added difficutly buttons to drawers
+	gives option to either immeditly restart or wait until the current game is over to change difficulty

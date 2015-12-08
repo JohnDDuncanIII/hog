@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 	protected Dialog mSplashDialog;
 	// difficulty level buttons for splash screen
 	private Button buttonEasy, buttonMedium, buttonHard;
+	private Button drawerButtonEasy, drawerButtonMedium, drawerButtonHard;
 	// name input for splash screen
 	private EditText editTextEnteredText;
 	// keep track of the username
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
 	int goal = 100;
 	double theta = 0;
 	double winweight = 0;
+
+	private String nextGameDifficulty;
 
 
 	/**
@@ -182,8 +185,8 @@ public class MainActivity extends AppCompatActivity {
 		showSplashScreen();
 
 		//final Context ctx = getApplicationContext();
-				
-		
+
+
 		setContentView(R.layout.activity_main);
 
 		// Initialize GUI components
@@ -196,6 +199,37 @@ public class MainActivity extends AppCompatActivity {
 		imageGrid = ((GridLayout) findViewById(R.id.image_grid));
 		// TODO: change imageGrid parameter so that the views start showing from
 		// left rather than center
+
+		drawerButtonEasy = (Button) findViewById(R.id.drawerButtonEasy);
+		drawerButtonMedium = (Button) findViewById(R.id.drawerButtonMedium);
+		drawerButtonHard = (Button) findViewById(R.id.drawerButtonHard);
+
+		drawerButtonEasy.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				//buttonEasy();
+				nextGameDifficulty = "easy";
+				shouldRecordStats();
+				//TODO
+			}
+		});
+
+		drawerButtonMedium.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				//buttonMedium();
+				nextGameDifficulty = "medium";
+				shouldRecordStats();
+
+			}
+		});
+
+		drawerButtonHard.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				//buttonHard();
+				nextGameDifficulty = "hard";
+				shouldRecordStats();
+			}
+		});
+
 
 		spinner = (Spinner) findViewById(R.id.roll_spinner);
 
@@ -265,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 		seekBar = (SeekBar) this.findViewById(R.id.seekBar1);
+
 		seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			int progress = 0;
 
@@ -391,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
 					numRolls = advise(userScore, computerScore, dice);
 				}
 
-				
+
 				final int nRolls = numRolls;
 
 				final SynchronousQueue<Boolean> queue = new SynchronousQueue<Boolean>();
@@ -436,8 +471,27 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void endGame() {
-		String message = (!isUserTurn) ? String.format("Computer won %d to %d.", computerScore, userScore)
-				: String.format("You win %d to %d.", userScore, computerScore);
+		String message;
+
+		if(!nextGameDifficulty.isEmpty()){
+			message = "User has chosen to reset the game";
+			if(nextGameDifficulty == "easy") {
+				buttonEasy();
+			}
+			else if (nextGameDifficulty == "medium") {
+				buttonMedium();
+			}
+			else if (nextGameDifficulty == "hard"){
+				buttonHard();
+			}
+		}
+		else{
+
+			message = (!isUserTurn) ? String.format("Computer won %d to %d.", computerScore, userScore)
+					: String.format("You win %d to %d.", userScore, computerScore);
+		}
+
+
 		message += "  Would you like to play again?";
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(message).setCancelable(false)
@@ -635,6 +689,9 @@ public class MainActivity extends AppCompatActivity {
 		buttonEasy = (Button) mSplashDialog.findViewById(R.id.buttonEasy);
 		buttonMedium = (Button) mSplashDialog.findViewById(R.id.buttonMedium);
 		buttonHard = (Button) mSplashDialog.findViewById(R.id.buttonHard);
+
+
+
 		editTextEnteredText = (EditText) mSplashDialog.findViewById(R.id.editTextEnteredText);
 		//checkBoxResetStats = (CheckBox) mSplashDialog.findViewById(R.id.checkBoxReset);
 
@@ -658,90 +715,102 @@ public class MainActivity extends AppCompatActivity {
 
 		buttonEasy.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				/*String inp=editTextEnteredText.getText().toString();
-				if(inp.length()>15) {
-					inp=inp.substring(0,15);
-				}
-
-				if(!inp.equals("")) {
-					setUserName(inp.trim() + "'s");
-				}
-				 */
-				
-				computerLevel="easy";
-
-				maxDice = 30;
-				goal = 100;
-				theta = 1e-9;
-				winweight = .2;
-				
-				createComputer("easyPlayer.dat");
+				buttonEasy();
 				removeSplashScreen();
-				
-				/*
-				if(checkBoxResetStats.isChecked()) {
-					resetStats();
-				}
-				 */
 			}
 		});
 
 		buttonMedium.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//String inp=editTextEnteredText.getText().toString();
-				/*
-				if(!inp.equals("")) {
-					setUserName(inp.trim() + "'s");
-				}
-				 */
-				computerLevel="medium";
-
-				maxDice = 30;
-				goal = 100;
-				theta = 1e-9;
-				winweight = .9;
-				
-				createComputer("mediumPlayer.dat");
+				buttonMedium();
 				removeSplashScreen();
-
-
-				//
-				/*
-				if(checkBoxResetStats.isChecked()) {
-					resetStats();
-				}
-				 */
 			}
 		});
 
 		buttonHard.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//String inp=editTextEnteredText.getText().toString();
-				/*
-				if(!inp.equals("")) {
-					setUserName(inp.trim() + "'s");
-				}
-				 */
-				computerLevel="hard";
-
-				maxDice = 30;
-				goal = 100;
-				theta = 1e-9;
-				
-				createComputer("hardPlayer.dat");
+				buttonHard();
 				removeSplashScreen();
-
-
-				/*
-				if(checkBoxResetStats.isChecked()) {
-					resetStats();
-				}
-				 */ 
 			}
 		});
 
+
 		mSplashDialog.setCancelable(false);
 		mSplashDialog.show();
+	}
+
+	public void buttonEasy() {
+		/*String inp=editTextEnteredText.getText().toString();
+		if(inp.length()>15) {
+			inp=inp.substring(0,15);
+		}
+
+		if(!inp.equals("")) {
+			setUserName(inp.trim() + "'s");
+		}
+		 */
+
+		computerLevel="easy";
+
+		maxDice = 30;
+		goal = 100;
+		theta = 1e-9;
+		winweight = .2;
+
+		createComputer("easyPlayer.dat");
+		/*
+		if(checkBoxResetStats.isChecked()) {
+			resetStats();
+		}
+		 */
+	}
+
+	public void buttonMedium() {
+		//String inp=editTextEnteredText.getText().toString();
+		/*
+		if(!inp.equals("")) {
+			setUserName(inp.trim() + "'s");
+		}
+		 */
+		computerLevel="medium";
+
+		maxDice = 30;
+		goal = 100;
+		theta = 1e-9;
+		winweight = .9;
+
+		createComputer("mediumPlayer.dat");
+
+		//
+		/*
+		if(checkBoxResetStats.isChecked()) {
+			resetStats();
+		}
+		 */
+	}
+
+	public void buttonHard() {
+		//String inp=editTextEnteredText.getText().toString();
+		/*
+		if(!inp.equals("")) {
+			setUserName(inp.trim() + "'s");
+		}
+		 */
+		computerLevel="hard";
+
+		maxDice = 30;
+		goal = 100;
+		theta = 1e-9;
+
+		createComputer("hardPlayer.dat");
+
+
+
+		/*
+		if(checkBoxResetStats.isChecked()) {
+			resetStats();
+		}
+		 */ 
 	}
 
 	/********************************************************/
@@ -779,7 +848,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		}
 	}
-	
+
 	public void createComputer(final String fileName) {
 		//final String FILENAME = "data.txt";
 
@@ -812,13 +881,13 @@ public class MainActivity extends AppCompatActivity {
 						if(computerLevel == "hard") {
 							hardSolver = new HogSolver(maxDice, goal, theta);
 							dice = copy(hardSolver.dice);
-							
+
 						}
 						else if(computerLevel == "medium" || computerLevel == "easy") {
 							easyMediumSolver = new RiskAverseHogSolver(maxDice, goal, theta, winweight);
 							dice = copy(easyMediumSolver.dice);
 						}
-						
+
 						hasComputed = true;
 
 						FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
@@ -841,5 +910,29 @@ public class MainActivity extends AppCompatActivity {
 				} 
 			}
 		}).start();
+	}
+
+	public void shouldRecordStats() {
+		//final boolean toReturn;
+
+		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which){
+				case DialogInterface.BUTTON_POSITIVE:
+					endGame();
+					break;
+
+				case DialogInterface.BUTTON_NEGATIVE:
+					break;
+				}
+			}
+		};
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Would you like to immedietly restart, or wait until your current game is complete?").setPositiveButton("Restart", dialogClickListener)
+		.setNegativeButton("Wait", dialogClickListener).show();
+		//return toReturn;
 	}
 }
