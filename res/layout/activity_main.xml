@@ -169,12 +169,25 @@
             android:layout_marginRight="10dp"
             android:max="1500"
             android:progress="0" />
+        
+        <Button
+            android:id="@+id/drawerButtonHowTo"
+            android:layout_width="fill_parent"
+            android:layout_height="85dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_blue"
+            android:gravity="center_vertical|center_horizontal"
+            android:shadowColor="@color/black"
+            android:shadowRadius="4"
+            android:text="@string/howto"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
 
         <Button
             android:id="@+id/drawerButtonEasy"
             android:layout_width="fill_parent"
-            android:layout_height="105dp"
-            android:layout_marginTop="40dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/btn_green"
             android:gravity="center_vertical|center_horizontal"
             android:shadowColor="@color/black"
@@ -186,7 +199,7 @@
         <Button
             android:id="@+id/drawerButtonMedium"
             android:layout_width="fill_parent"
-            android:layout_height="105dp"
+            android:layout_height="60dp"
             android:background="@drawable/btn_yellow"
             android:shadowColor="@color/black"
             android:shadowRadius="4"
@@ -197,7 +210,7 @@
         <Button
             android:id="@+id/drawerButtonHard"
             android:layout_width="fill_parent"
-            android:layout_height="105dp"
+            android:layout_height="60dp"
             android:background="@drawable/btn_red"
             android:shadowColor="@color/black"
             android:shadowRadius="4"

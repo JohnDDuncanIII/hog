@@ -9,6 +9,7 @@ import java.util.concurrent.SynchronousQueue;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -24,7 +25,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
 	// Simple Dialog used to show the splash screen
 	protected Dialog mSplashDialog;
+	// Simple Dialog used to instructions of the game
+	protected Dialog mHowToDialog;
 	// difficulty level buttons for splash screen
 	private Button buttonEasy, buttonMedium, buttonHard;
 	
-	private Button drawerButtonEasy, drawerButtonMedium, drawerButtonHard;
+	private Button drawerButtonEasy, drawerButtonMedium, drawerButtonHard, drawerButtonHowTo;
 	
 	HogSolver hardSolver;
 	
@@ -180,9 +182,16 @@ public class MainActivity extends AppCompatActivity {
 		// TODO: change imageGrid parameter so that the views start showing from
 		// left rather than center
 
+		drawerButtonHowTo = (Button) findViewById(R.id.drawerButtonHowTo);
 		drawerButtonEasy = (Button) findViewById(R.id.drawerButtonEasy);
 		drawerButtonMedium = (Button) findViewById(R.id.drawerButtonMedium);
 		drawerButtonHard = (Button) findViewById(R.id.drawerButtonHard);
+		
+		drawerButtonHowTo.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				showHogInstructions();
+			}
+		});
 
 		drawerButtonEasy.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -676,6 +685,33 @@ public class MainActivity extends AppCompatActivity {
 		if (mSplashDialog != null) {
 			mSplashDialog.dismiss();
 			mSplashDialog = null;
+		}
+	}
+	
+	/******************************************************************************************************************************/
+
+	/**
+	 * Shows the screen to explain the instructions to hog
+	 **/
+	/******************************************************************************************************************************/
+	protected void showHogInstructions() {
+//		mHowToDialog = new Dialog(this, R.style.AppTheme);
+//		mHowToDialog.setContentView(R.layout.instructions_main);
+//
+//		mHowToDialog.setCancelable(true);
+//		mHowToDialog.show();
+		InstructionsDialog instructionsDialog = new InstructionsDialog(this);
+		instructionsDialog.show();
+	}
+
+	/***********************************************************/
+
+	/** Removes the Dialog that displays the Hog instructions **/
+	/***********************************************************/
+	protected void removeHogInstructions() {
+		if (mHowToDialog != null) {
+			mHowToDialog.dismiss();
+			mHowToDialog = null;
 		}
 	}
 

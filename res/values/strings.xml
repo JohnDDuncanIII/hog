@@ -45,4 +45,10 @@
     <string name="medium">Medium</string>     
     <string name="hard">Hard</string> 
     <string name="tap_here">Tap here to reset stats</string>
+    <string name="howto">How to play Hog</string>
+    <string name="instructions1">Take turns with the computer rolling any number of die up to 25.</string>
+    <string name="instructions2">If a player rolls a 1 with one of the die, that player\'s 
+        score is zero for the round.</string>
+    <string name="instructions3">A player wins when they reach a score of 100.</string>
+    <string name="cancel">Got it!</string>
 </resources>
