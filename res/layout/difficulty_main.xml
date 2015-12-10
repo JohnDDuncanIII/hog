@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -40,7 +39,6 @@
             android:text="@string/easy"
             android:textColor="@color/white"
             android:textSize="28sp" />
-
     </TableRow>
 
     <TableRow
@@ -80,40 +78,5 @@
 
     </TableRow>
 
-    <TableRow
-        android:id="@+id/tableRow5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp" >
-
-        <EditText
-            android:id="@+id/editTextEnteredText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:ems="10"
-            android:hint="@string/enterName"
-            android:inputType="textPersonName" 
-            android:visibility="gone">
-            <requestFocus />
-        </EditText>
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" >
-
-        <CheckBox
-            android:id="@+id/checkBoxReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tap_here"
-            android:textColor="@color/white" 
-            android:visibility="gone" />
-
-    </TableRow>
 
 </LinearLayout>

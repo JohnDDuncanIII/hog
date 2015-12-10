@@ -1,55 +1,39 @@
 package edu.gettysburg.hog;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.concurrent.SynchronousQueue;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.concurrent.SynchronousQueue;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,35 +41,34 @@ public class MainActivity extends AppCompatActivity {
 	protected Dialog mSplashDialog;
 	// difficulty level buttons for splash screen
 	private Button buttonEasy, buttonMedium, buttonHard;
+	
 	private Button drawerButtonEasy, drawerButtonMedium, drawerButtonHard;
-	// name input for splash screen
-	private EditText editTextEnteredText;
-	// keep track of the username
-	// private String userName="User's";
-	// keep track of whether or not the user has passed the splash screen
-	private boolean hasComputed = false;
-	// hard computer player
+	
 	HogSolver hardSolver;
+	
 	// easy and medium computer player (we will instantiate with a different win
 	// weight)
 	RiskAverseHogSolver easyMediumSolver;
+	
 	// seekbar for animation delay
 	private SeekBar seekBar;
 	// hold the dice value (even if we are no longer using the original computer object
-	private int[][] dice;
+	//	private int[][] dice;
 	// stuff for instantiation. will be changed when the difficulty is chosen
 	int maxDice = 25;
 	int goal = 100;
 	double theta = 0;
 	double winweight = 0;
 
-	private String nextGameDifficulty;
+	private HashMap<String, int[][]> diceMap = new HashMap<String, int[][]>();
+
+	private String mainGameDifficulty = "easy";
 
 
 	/**
 	 * Delay between displaying each die roll (Only used for animation)
 	 */
-	protected static long ANIMATION_DELAY = 100;
+	protected static int ANIMATION_DELAY = 100;
 
 	/**
 	 * Goal score at or above which the holding player wins
@@ -167,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 	 * Difficulty level for the human player. Higher level corresponds to better
 	 * computer AI
 	 */
-	private String computerLevel = "easy";
+	private String curGameDifficulty = "easy";
 
 	/**
 	 * Screen width and height in pixels.
@@ -183,9 +166,6 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		showSplashScreen();
-
-		//final Context ctx = getApplicationContext();
-
 
 		setContentView(R.layout.activity_main);
 
@@ -206,27 +186,23 @@ public class MainActivity extends AppCompatActivity {
 
 		drawerButtonEasy.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//buttonEasy();
-				nextGameDifficulty = "easy";
-				shouldRecordStats();
-				//TODO
+				mainGameDifficulty = "easy";
+				displayLevelChangePrompt();
 			}
 		});
 
 		drawerButtonMedium.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//buttonMedium();
-				nextGameDifficulty = "medium";
-				shouldRecordStats();
+				mainGameDifficulty = "medium";
+				displayLevelChangePrompt();
 
 			}
 		});
 
 		drawerButtonHard.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//buttonHard();
-				nextGameDifficulty = "hard";
-				shouldRecordStats();
+				mainGameDifficulty = "hard";
+				displayLevelChangePrompt();
 			}
 		});
 
@@ -299,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 		seekBar = (SeekBar) this.findViewById(R.id.seekBar1);
+		seekBar.setProgress(ANIMATION_DELAY);
 
 		seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			int progress = 0;
@@ -315,18 +292,11 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				// Toast.makeText(getApplicationContext(), "Changing seekbar's
-				// progress", Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(), "Delay changed to " + String.valueOf(progress),
+				Toast.makeText(getApplicationContext(), "Delay changed to " + String.valueOf(progress) + " miliseconds.",
 						Toast.LENGTH_SHORT).show();
 				ANIMATION_DELAY = progress;
 			}
 		});
-
-		// don't let the drawer slide closed when you swipe left to change the
-		// seekbar
-		// sourced from
-		// http://stackoverflow.com/questions/18400910/seekbar-in-a-navigationdrawer
 		seekBar.setOnTouchListener(new ListView.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -349,9 +319,11 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
-		// drawerLayout.addView(seekBar, 0);
 
 		resetGrid();
+
+		//Initialize dicemap
+		readData();
 	}
 
 	@Override
@@ -417,15 +389,13 @@ public class MainActivity extends AppCompatActivity {
 				}
 				int numRolls = 0;
 
-				if(!hasComputed) {
+				if(!diceMap.containsKey(curGameDifficulty)) {
 					numRolls = rand.nextInt((6 - 4) + 1) + 4;
 				}
-				else if (computerLevel == "hard" && hasComputed) {
-					numRolls = advise(userScore, computerScore, dice);
-				} else if ((computerLevel == "medium" || computerLevel == "easy") && hasComputed) {
-					numRolls = advise(userScore, computerScore, dice);
+				else
+				{
+					numRolls  = diceMap.get(curGameDifficulty)[userScore][computerScore];
 				}
-
 
 				final int nRolls = numRolls;
 
@@ -447,6 +417,8 @@ public class MainActivity extends AppCompatActivity {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+
+
 					}
 				});
 
@@ -460,7 +432,13 @@ public class MainActivity extends AppCompatActivity {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				roll(numRolls);
+
+				runOnUiThread(new Runnable(){
+					public void run()
+					{
+						roll(nRolls);						
+					}
+				});
 			}
 		})).start();
 	}
@@ -471,79 +449,55 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void endGame() {
-		String message;
 
-		if(!nextGameDifficulty.isEmpty()){
-			message = "User has chosen to reset the game";
-			if(nextGameDifficulty == "easy") {
-				buttonEasy();
-			}
-			else if (nextGameDifficulty == "medium") {
-				buttonMedium();
-			}
-			else if (nextGameDifficulty == "hard"){
-				buttonHard();
-			}
-		}
-		else{
-
-			message = (!isUserTurn) ? String.format("Computer won %d to %d.", computerScore, userScore)
+		curGameDifficulty = mainGameDifficulty;
+		if(Math.max(userScore, computerScore) >= 100)
+		{
+			String message = (!isUserTurn) ? String.format("Computer won %d to %d. Would you like to play again?", computerScore, userScore)
 					: String.format("You win %d to %d.", userScore, computerScore);
-		}
 
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(message).setCancelable(false)
+			.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					setUserScore(0);
+					setComputerScore(0);
+					setTurnTotal(0);
+					userStartGame = !userStartGame;
+					isUserTurn = userStartGame;
+					setButtonsState(isUserTurn);
+					if (!isUserTurn) {
+						computerTurn();
 
-		message += "  Would you like to play again?";
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(message).setCancelable(false)
-		.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				setUserScore(0);
-				setComputerScore(0);
-				setTurnTotal(0);
-				userStartGame = !userStartGame;
-				isUserTurn = userStartGame;
-				setButtonsState(isUserTurn);
-				if (!isUserTurn) {
-					computerTurn();
-
-				} else {
-					resetGrid();
+					} else {
+						resetGrid();
+					}
+					dialog.cancel();
 				}
-				dialog.cancel();
+			}).setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					MainActivity.this.finish();
+				}
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
+		else {
+			setUserScore(0);
+			setComputerScore(0);
+			setTurnTotal(0);
+			userStartGame = !userStartGame;
+			isUserTurn = userStartGame;
+			setButtonsState(isUserTurn);
+			if (!isUserTurn) {
+				computerTurn();
+
+			} else {
+				resetGrid();
 			}
-		}).setNegativeButton("Quit", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				MainActivity.this.finish();
-			}
-		});
-		AlertDialog alert = builder.create();
-		alert.show();
+		}
 	}
 
-	// protected void onSaveInstanceState(Bundle outState) {
-	// super.onSaveInstanceState(outState);
-	// outState.putInt("userScore", userScore);
-	// outState.putInt("computerScore", computerScore);
-	// outState.putInt("turnTotal", turnTotal);
-	// outState.putBoolean("userStartGame", userStartGame);
-	// outState.putBoolean("isUserTurn", isUserTurn);
-	// outState.putString("imageName", imageName);
-	// }
-	//
-	// protected void onRestoreInstanceState(Bundle savedInstanceState) {
-	// super.onRestoreInstanceState(savedInstanceState);
-	// setUserScore(savedInstanceState.getInt("userScore", 0));
-	// setComputerScore(savedInstanceState.getInt("computerScore", 0));
-	// setTurnTotal(savedInstanceState.getInt("turnTotal", 0));
-	// setImage(savedInstanceState.getString("imageName"));
-	// userStartGame = savedInstanceState.getBoolean("userStartGame", true);
-	// isUserTurn = savedInstanceState.getBoolean("isUserTurn", true);
-	// setButtonsState();
-	// if (userScore >= GOAL_SCORE || computerScore >= GOAL_SCORE)
-	// endGame();
-	// else if (!isUserTurn)
-	// computerTurn();
-	// }
 
 	private void resetGrid() {
 
@@ -567,11 +521,6 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void run() {
 				Thread.yield();
-				try {
-					Thread.sleep(ANIMATION_DELAY);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 				final SynchronousQueue<Boolean> queue = new SynchronousQueue<Boolean>();
 				final int size = (int) Math.min(width, 0.5 * height);
 				double sqrt = Math.sqrt(currentRolls.length);
@@ -685,51 +634,30 @@ public class MainActivity extends AppCompatActivity {
 		mSplashDialog = new Dialog(this, R.style.AppTheme);
 		mSplashDialog.setContentView(R.layout.difficulty_main);
 
-		//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		buttonEasy = (Button) mSplashDialog.findViewById(R.id.buttonEasy);
 		buttonMedium = (Button) mSplashDialog.findViewById(R.id.buttonMedium);
 		buttonHard = (Button) mSplashDialog.findViewById(R.id.buttonHard);
 
-
-
-		editTextEnteredText = (EditText) mSplashDialog.findViewById(R.id.editTextEnteredText);
-		//checkBoxResetStats = (CheckBox) mSplashDialog.findViewById(R.id.checkBoxReset);
-
-		/*
-		if(!userName.equals("User's")) {
-			editTextEnteredText.setHint("Name Currently Saved As: " + userName.substring(0, userName.length()-2));
-		}
-		 */
-
-
-		/*
-		checkBoxResetStats.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if(checkBoxResetStats.isChecked()) {
-					resetStats();
-				}
-			}
-		});
-		 */
-
 		buttonEasy.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				buttonEasy();
+				curGameDifficulty = "easy";
+				mainGameDifficulty = "easy";
 				removeSplashScreen();
 			}
 		});
 
 		buttonMedium.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				buttonMedium();
+				curGameDifficulty = "medium";
+				mainGameDifficulty = "medium";
 				removeSplashScreen();
 			}
 		});
 
 		buttonHard.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				buttonHard();
+				curGameDifficulty = "hard";
+				mainGameDifficulty = "hard";
 				removeSplashScreen();
 			}
 		});
@@ -739,79 +667,6 @@ public class MainActivity extends AppCompatActivity {
 		mSplashDialog.show();
 	}
 
-	public void buttonEasy() {
-		/*String inp=editTextEnteredText.getText().toString();
-		if(inp.length()>15) {
-			inp=inp.substring(0,15);
-		}
-
-		if(!inp.equals("")) {
-			setUserName(inp.trim() + "'s");
-		}
-		 */
-
-		computerLevel="easy";
-
-		maxDice = 30;
-		goal = 100;
-		theta = 1e-9;
-		winweight = .2;
-
-		createComputer("easyPlayer.dat");
-		/*
-		if(checkBoxResetStats.isChecked()) {
-			resetStats();
-		}
-		 */
-	}
-
-	public void buttonMedium() {
-		//String inp=editTextEnteredText.getText().toString();
-		/*
-		if(!inp.equals("")) {
-			setUserName(inp.trim() + "'s");
-		}
-		 */
-		computerLevel="medium";
-
-		maxDice = 30;
-		goal = 100;
-		theta = 1e-9;
-		winweight = .9;
-
-		createComputer("mediumPlayer.dat");
-
-		//
-		/*
-		if(checkBoxResetStats.isChecked()) {
-			resetStats();
-		}
-		 */
-	}
-
-	public void buttonHard() {
-		//String inp=editTextEnteredText.getText().toString();
-		/*
-		if(!inp.equals("")) {
-			setUserName(inp.trim() + "'s");
-		}
-		 */
-		computerLevel="hard";
-
-		maxDice = 30;
-		goal = 100;
-		theta = 1e-9;
-
-		createComputer("hardPlayer.dat");
-
-
-
-		/*
-		if(checkBoxResetStats.isChecked()) {
-			resetStats();
-		}
-		 */ 
-	}
 
 	/********************************************************/
 
@@ -819,8 +674,6 @@ public class MainActivity extends AppCompatActivity {
 	/********************************************************/
 	protected void removeSplashScreen() {
 		if (mSplashDialog != null) {
-			// mix();
-			// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 			mSplashDialog.dismiss();
 			mSplashDialog = null;
 		}
@@ -837,84 +690,41 @@ public class MainActivity extends AppCompatActivity {
 		return toReturn;
 	}
 
-	public int advise(int playerScore, int opponentScore, int[][] die) {
-		while (true) {
-			try {
-				if (playerScore >= 0 && opponentScore >= 0 && playerScore < GOAL && opponentScore < GOAL)
-					return die[playerScore][opponentScore];
-			}
-			catch (Exception e) {
-				continue;
-			}
-		}
-	}
 
-	public void createComputer(final String fileName) {
-		//final String FILENAME = "data.txt";
-
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
+	private void readData()
+	{
+		new Thread()
+		{
+			public void run()
+			{
+				String[] level = {"easy", "medium", "hard"};
 				try {
-					//String path = ctx.getFilesDir().getPath();
-					FileInputStream inFile = openFileInput(fileName);
-					if (inFile.available() == 0) {
-						deleteFile(fileName);
-						IOException e = new IOException();
-						throw e;
-					}
+					for(String s: level)
+					{
+						InputStream inFile = MainActivity.this.getAssets().open(s + "Player.dat");
+						Scanner scanner = new Scanner(inFile);
+						int[][] inMatrix = new int[100][100];
 
-					Scanner scanner = new Scanner(inFile);
-					int[][] inMatrix = new int[100][100];
-
-					for(int i=0;i<inMatrix.length;i++) {
-						for (int j=0; j<inMatrix[i].length; j++) {
-							inMatrix[i][j] = scanner.nextInt();
-						}
-					}
-
-					dice = copy(inMatrix);
-					hasComputed = true;
-
-				} catch (IOException e) { 
-					try {
-						if(computerLevel == "hard") {
-							hardSolver = new HogSolver(maxDice, goal, theta);
-							dice = copy(hardSolver.dice);
-
-						}
-						else if(computerLevel == "medium" || computerLevel == "easy") {
-							easyMediumSolver = new RiskAverseHogSolver(maxDice, goal, theta, winweight);
-							dice = copy(easyMediumSolver.dice);
-						}
-
-						hasComputed = true;
-
-						FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
-						BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
-						writer.write("");
-
-						runOnUiThread(new Runnable() {
-							public void run() {
-								Toast.makeText(getApplicationContext(), "AI done computing", Toast.LENGTH_SHORT).show();
+						for(int i=0;i<inMatrix.length;i++) {
+							for (int j=0; j<inMatrix[i].length; j++) {
+								inMatrix[i][j] = scanner.nextInt();
 							}
-						});
+						}	
+						scanner.close();
+						diceMap.put(s, inMatrix);
+					}	
+				}
 
-						for(int i=0;i<dice.length;i++) {
-							for (int j=0; j<dice[i].length; j++) {
-								writer.write(dice[i][j] + " ");
-							}
-						}		
-						writer.flush();
-					} catch (IOException e1) {}
-				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-		}).start();
+		}.start();
 	}
 
-	public void shouldRecordStats() {
-		//final boolean toReturn;
 
+
+	public void displayLevelChangePrompt() {
 		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 
 			@Override
@@ -922,6 +732,7 @@ public class MainActivity extends AppCompatActivity {
 				switch (which){
 				case DialogInterface.BUTTON_POSITIVE:
 					endGame();
+					drawerLayout.closeDrawers();
 					break;
 
 				case DialogInterface.BUTTON_NEGATIVE:
@@ -933,6 +744,5 @@ public class MainActivity extends AppCompatActivity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("Would you like to immedietly restart, or wait until your current game is complete?").setPositiveButton("Restart", dialogClickListener)
 		.setNegativeButton("Wait", dialogClickListener).show();
-		//return toReturn;
 	}
 }
