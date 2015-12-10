@@ -10,3 +10,7 @@ writes the computed data policy out to a file (easy/medium/hard.dat), and reads 
 added textview to drawer
 added difficutly buttons to drawers
 	gives option to either immeditly restart or wait until the current game is over to change difficulty
+	
+12/10
+added dialog for game instructions
+added button for dialog in drawer
