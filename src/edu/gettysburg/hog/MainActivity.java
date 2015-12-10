@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 	// Simple Dialog used to show the splash screen
 	protected Dialog mSplashDialog;
 	// Simple Dialog used to instructions of the game
-	protected Dialog mHowToDialog;
+	InstructionsDialog instructionsDialog;
 	// difficulty level buttons for splash screen
 	private Button buttonEasy, buttonMedium, buttonHard;
 	
@@ -695,24 +695,8 @@ public class MainActivity extends AppCompatActivity {
 	 **/
 	/******************************************************************************************************************************/
 	protected void showHogInstructions() {
-//		mHowToDialog = new Dialog(this, R.style.AppTheme);
-//		mHowToDialog.setContentView(R.layout.instructions_main);
-//
-//		mHowToDialog.setCancelable(true);
-//		mHowToDialog.show();
-		InstructionsDialog instructionsDialog = new InstructionsDialog(this);
+		instructionsDialog = new InstructionsDialog(this);
 		instructionsDialog.show();
-	}
-
-	/***********************************************************/
-
-	/** Removes the Dialog that displays the Hog instructions **/
-	/***********************************************************/
-	protected void removeHogInstructions() {
-		if (mHowToDialog != null) {
-			mHowToDialog.dismiss();
-			mHowToDialog = null;
-		}
 	}
 
 	public int[][] copy(int[][] input) {
