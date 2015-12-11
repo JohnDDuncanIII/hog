@@ -13,6 +13,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -163,6 +164,15 @@ public class MainActivity extends AppCompatActivity {
 	 * Drawer layout for settings
 	 */
 	private DrawerLayout drawerLayout;
+	/**
+	 * media player for rolling sound
+	 */
+	private MediaPlayer mpDice;
+	
+	/**
+	 * media player for background music
+	 */
+	private MediaPlayer mpMusic;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -241,7 +251,14 @@ public class MainActivity extends AppCompatActivity {
 
 			}
 		});
-
+		
+		
+		mpDice = MediaPlayer.create(this, R.raw.diceroll);
+		
+		mpMusic = MediaPlayer.create(this, R.raw.music);
+		mpMusic.setLooping(true);
+		mpMusic.start();
+		
 		rollButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -351,6 +368,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void roll(int numRolls) {
+		mpDice.start();
 		setButtonsState(false);
 		currentRolls = new int[numRolls];
 		for (int i = 0; i < numRolls; ++i) {
