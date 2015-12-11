@@ -8,8 +8,8 @@
     <string name="close_drawer">Close Settings</string>
     <string name="drawer_title">Settings</string>
     <string-array name="roll_array">
-        <item>1 die</item>
-        <item>2 dice</item>
+        <item>1 Die</item>
+        <item>2 Dice</item>
         <item>3 Dice </item>
         <item>4 Dice </item>
         <item>5 Dice </item>
@@ -46,8 +46,8 @@
     <string name="hard">Hard</string> 
     <string name="tap_here">Tap here to reset stats</string>
     <string name="howto">How to play Hog</string>
-    <string name="instructions1">Take turns with the computer rolling any number of die up to 25.</string>
-    <string name="instructions2">If a player rolls a 1 with one of the die, that player\'s 
+    <string name="instructions1">Take turns with the computer rolling any number of dice up to 25.</string>
+    <string name="instructions2">If a player rolls a 1 with one of the dice, that player\'s 
         score is zero for the round.</string>
     <string name="instructions3">A player wins when they reach a score of 100.</string>
     <string name="cancel">Got it!</string>
