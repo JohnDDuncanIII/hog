@@ -9,7 +9,6 @@ import java.util.concurrent.SynchronousQueue;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -253,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 		
 		
+		
 		mpDice = MediaPlayer.create(this, R.raw.diceroll);
 		
 		mpMusic = MediaPlayer.create(this, R.raw.music);
@@ -350,6 +350,20 @@ public class MainActivity extends AppCompatActivity {
 
 		//Initialize dicemap
 		readData();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		mpMusic.pause();
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		if(!mpMusic.isPlaying()){
+			mpMusic.start();			
+		}
 	}
 
 	@Override
