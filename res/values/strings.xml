@@ -55,6 +55,7 @@
         score is zero for the round.</string>
     <string name="instructions3">A player wins when they reach a score of 100.</string>
     <string name="cancel">Got it!</string>
-    <string name="turnSoundOffOn">Turn Sound Off/On</string>
+    <string name="turnSoundOff">Turn Sound Off</string>
+    <string name="turnSoundOn">Turn Sound On</string>
 
 </resources>

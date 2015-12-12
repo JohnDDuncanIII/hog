@@ -211,11 +211,13 @@ public class MainActivity extends AppCompatActivity {
 		drawerButtonSound.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if(soundOn) {
+					drawerButtonSound.setText(R.string.turnSoundOn);
 					mpMusic.setVolume(0, 0);;
 					mpDice.setVolume(0, 0);
 					soundOn = false;
 				}
 				else {
+					drawerButtonSound.setText(R.string.turnSoundOff);
 					mpMusic.setVolume(1, 1);;
 					mpDice.setVolume(1, 1);
 					soundOn = true;

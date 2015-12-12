@@ -2323,7 +2323,8 @@ containing a value of this type.
          */
         public static final int status_bar_notification_info_overflow=0x7f0b0011;
         public static final int tap_here=0x7f0b0021;
-        public static final int turnSoundOffOn=0x7f0b0027;
+        public static final int turnSoundOff=0x7f0b0027;
+        public static final int turnSoundOn=0x7f0b0028;
         public static final int turn_total=0x7f0b0018;
         public static final int your_score=0x7f0b0015;
         public static final int zero=0x7f0b0017;
