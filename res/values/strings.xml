@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Hog Game</string>
     <string name="your_score">Your Score</string>
     <string name="computer_score">Computer Score</string>
@@ -7,6 +8,7 @@
     <string name="open_drawer">Open Settings</string>
     <string name="close_drawer">Close Settings</string>
     <string name="drawer_title">Settings</string>
+
     <string-array name="roll_array">
         <item>1 Die</item>
         <item>2 Dice</item>
@@ -34,16 +36,18 @@
         <item>24 Dice </item>
         <item>25 Dice </item>
     </string-array>
+
     <color name="black">#1b1b1b</color>
     <color name="white">#ffffff</color>
     <color name="green">#70c656</color>
     <color name="yellow">#f3ae1b</color>
     <color name="red">#ef4444</color>
-    <string name="chooseDifficulty">Please Choose Your Difficulty:</string>   
-    <string name="enterName">Please Enter Your Name</string>  
-    <string name="easy">Easy</string>     
-    <string name="medium">Medium</string>     
-    <string name="hard">Hard</string> 
+
+    <string name="chooseDifficulty">Please Choose Your Difficulty:</string>
+    <string name="enterName">Please Enter Your Name</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
     <string name="tap_here">Tap here to reset stats</string>
     <string name="howto">How to play Hog</string>
     <string name="instructions1">Take turns with the computer rolling any number of dice up to 25.</string>
@@ -51,4 +55,6 @@
         score is zero for the round.</string>
     <string name="instructions3">A player wins when they reach a score of 100.</string>
     <string name="cancel">Got it!</string>
+    <string name="turnSoundOffOn">Turn Sound Off/On</string>
+
 </resources>

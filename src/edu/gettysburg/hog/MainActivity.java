@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 	// difficulty level buttons for splash screen
 	private Button buttonEasy, buttonMedium, buttonHard;
 	
-	private Button drawerButtonEasy, drawerButtonMedium, drawerButtonHard, drawerButtonHowTo;
+	private Button drawerButtonEasy, drawerButtonMedium, drawerButtonHard, drawerButtonHowTo, drawerButtonSound;
 	
 	HogSolver hardSolver;
 	
@@ -172,6 +172,11 @@ public class MainActivity extends AppCompatActivity {
 	 * media player for background music
 	 */
 	private MediaPlayer mpMusic;
+	
+	/**
+	 * lets us now if sound is on or not
+	 */
+	private boolean soundOn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -192,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
 		// left rather than center
 
 		drawerButtonHowTo = (Button) findViewById(R.id.drawerButtonHowTo);
+		drawerButtonSound = (Button) findViewById(R.id.drawerButtonSound);
 		drawerButtonEasy = (Button) findViewById(R.id.drawerButtonEasy);
 		drawerButtonMedium = (Button) findViewById(R.id.drawerButtonMedium);
 		drawerButtonHard = (Button) findViewById(R.id.drawerButtonHard);
@@ -199,6 +205,21 @@ public class MainActivity extends AppCompatActivity {
 		drawerButtonHowTo.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				showHogInstructions();
+			}
+		});
+		
+		drawerButtonSound.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				if(soundOn) {
+					mpMusic.setVolume(0, 0);;
+					mpDice.setVolume(0, 0);
+					soundOn = false;
+				}
+				else {
+					mpMusic.setVolume(1, 1);;
+					mpDice.setVolume(1, 1);
+					soundOn = true;
+				}
 			}
 		});
 
@@ -252,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 		
 		
+		soundOn = true;
 		
 		mpDice = MediaPlayer.create(this, R.raw.diceroll);
 		

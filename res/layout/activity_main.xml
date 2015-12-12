@@ -173,28 +173,40 @@
         <Button
             android:id="@+id/drawerButtonHowTo"
             android:layout_width="fill_parent"
-            android:layout_height="85dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="60dp"
             android:background="@drawable/btn_blue"
             android:gravity="center_vertical|center_horizontal"
             android:shadowColor="@color/black"
             android:shadowRadius="4"
             android:text="@string/howto"
             android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
+        
+        <Button
+            android:id="@+id/drawerButtonSound"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_purple"
+            android:gravity="center_vertical|center_horizontal"
+            android:shadowColor="@color/black"
+            android:shadowRadius="4"
+            android:text="@string/turnSoundOffOn"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
 
         <Button
             android:id="@+id/drawerButtonEasy"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_green"
             android:gravity="center_vertical|center_horizontal"
             android:shadowColor="@color/black"
             android:shadowRadius="4"
             android:text="@string/easy"
             android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/drawerButtonMedium"
@@ -205,7 +217,7 @@
             android:shadowRadius="4"
             android:text="@string/medium"
             android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/drawerButtonHard"
@@ -216,7 +228,7 @@
             android:shadowRadius="4"
             android:text="@string/hard"
             android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textSize="24sp" />
 
         <ListView
             android:id="@+id/right_drawer"
