@@ -54,13 +54,6 @@ public class MainActivity extends AppCompatActivity {
 	
 	// seekbar for animation delay
 	private SeekBar seekBar;
-	// hold the dice value (even if we are no longer using the original computer object
-	//	private int[][] dice;
-	// stuff for instantiation. will be changed when the difficulty is chosen
-	int maxDice = 25;
-	int goal = 100;
-	double theta = 0;
-	double winweight = 0;
 
 	private HashMap<String, int[][]> diceMap = new HashMap<String, int[][]>();
 
@@ -112,10 +105,6 @@ public class MainActivity extends AppCompatActivity {
 	 */
 	private int[] currentRolls;
 
-	/**
-	 * current roll position
-	 */
-	private int currentRollPos;
 
 	/**
 	 * Text Views for displaying scores and turn total
@@ -193,8 +182,6 @@ public class MainActivity extends AppCompatActivity {
 		rollButton = ((ImageButton) findViewById(R.id.rollButton));
 
 		imageGrid = ((GridLayout) findViewById(R.id.image_grid));
-		// TODO: change imageGrid parameter so that the views start showing from
-		// left rather than center
 
 		drawerButtonHowTo = (Button) findViewById(R.id.drawerButtonHowTo);
 		drawerButtonSound = (Button) findViewById(R.id.drawerButtonSound);
@@ -459,7 +446,7 @@ public class MainActivity extends AppCompatActivity {
 				}
 				else
 				{
-					numRolls  = diceMap.get(curGameDifficulty)[userScore][computerScore];
+					numRolls  = diceMap.get(curGameDifficulty)[computerScore][userScore];
 				}
 
 				final int nRolls = numRolls;
