@@ -229,16 +229,29 @@
             android:text="@string/hard"
             android:textColor="@color/white"
             android:textSize="24sp" />
+        <Button
+            android:id="@+id/drawerButtonCredits"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_credits"
+            android:gravity="center_vertical|center_horizontal"
+            android:shadowColor="@color/black"
+            android:shadowRadius="4"
+            android:text="@string/credits"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+        
 
-        <ListView
-            android:id="@+id/right_drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:background="#123456"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp" />
+<!--         <ListView -->
+<!--             android:id="@+id/right_drawer" -->
+<!--             android:layout_width="match_parent" -->
+<!--             android:layout_height="match_parent" -->
+<!--             android:layout_gravity="right" -->
+<!--             android:background="#123456" -->
+<!--             android:choiceMode="singleChoice" -->
+<!--             android:divider="@android:color/transparent" -->
+<!--             android:dividerHeight="0dp" /> -->
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

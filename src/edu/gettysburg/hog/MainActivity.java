@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 	// difficulty level buttons for splash screen
 	private Button buttonEasy, buttonMedium, buttonHard;
 	
-	private Button drawerButtonEasy, drawerButtonMedium, drawerButtonHard, drawerButtonHowTo, drawerButtonSound;
+	private Button drawerButtonEasy, drawerButtonMedium, drawerButtonHard, drawerButtonHowTo, drawerButtonSound, drawerButtonCredits;
 	
 	HogSolver hardSolver;
 	
@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
 		drawerButtonEasy = (Button) findViewById(R.id.drawerButtonEasy);
 		drawerButtonMedium = (Button) findViewById(R.id.drawerButtonMedium);
 		drawerButtonHard = (Button) findViewById(R.id.drawerButtonHard);
+		drawerButtonCredits = (Button) findViewById(R.id.drawerButtonCredits);
 		
 		drawerButtonHowTo.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -231,6 +232,16 @@ public class MainActivity extends AppCompatActivity {
 			public void onClick(View v) {
 				mainGameDifficulty = "hard";
 				displayLevelChangePrompt();
+			}
+		});
+		
+		drawerButtonCredits.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				new CreditsDialog(MainActivity.this).show();
+				drawerLayout.closeDrawers();
+				
 			}
 		});
 
@@ -740,6 +751,7 @@ public class MainActivity extends AppCompatActivity {
 	protected void showHogInstructions() {
 		instructionsDialog = new InstructionsDialog(this);
 		instructionsDialog.show();
+		drawerLayout.closeDrawers();
 	}
 
 	public int[][] copy(int[][] input) {

@@ -55,7 +55,14 @@
         score is zero for the round.</string>
     <string name="instructions3">A player wins when they reach a score of 100.</string>
     <string name="cancel">Got it!</string>
+    <string name="close">Close</string>
     <string name="turnSoundOff">Turn Sound Off</string>
     <string name="turnSoundOn">Turn Sound On</string>
-
+    <string name="credits">Credits</string>
+    
+    <string name="todd">Gettysburg College Professor Todd W. Neller designed the AI for computer players.</string>
+    <string name="amrit">Amrit Dhakal is a Computer Science Major at Gettysburg College in the graduating class of 2017. His contributions to Hog Game included design and implementation of the user interface, implementation of dice animation and implementaiton of credits page. </string>
+    <string name="john">John Duncan is a student at Gettysburg college in the graduating class of 2017. He is a Computer Science major and Political Science and Philosophy minor. His contributions to Hog Game included AI integration and implementation of navigation drawer layout.</string>
+    <string name="kyle">Kyle Wigley is a Computer Science Major and Business Minor at Gettysburg College in the graduating class of 2016. His contributions to the Hog Game included implementation of sound control and game instructions.</string>
+    <string name="sean">Sean Scott is a student at Gettysburg College in the graduating class of 2017. He is a Computer Science major and History minor. His contribution to the project included initial sound implementation.</string>
 </resources>

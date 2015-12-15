@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:id="@+id/creditsView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <TextView
+				        android:layout_width="fill_parent"
+						android:gravity="center"
+        				android:layout_height="40dp"
+            			android:layout_alignParentTop="true"
+            			android:background="@drawable/btn_credits"
+				        android:text="@string/credits"
+				        android:textColor="@color/white"/>
+            
+		    <ScrollView
+		        android:layout_width="fill_parent"
+		        android:layout_height="match_parent"
+		        android:paddingTop="40dp"
+				android:paddingBottom="40dp">
+		
+		        <LinearLayout
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="vertical" >
+		            		            
+		             <ImageView
+		                android:id="@+id/imageView7"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_gravity="center"
+		                android:paddingTop="15dp"
+		                android:src="@drawable/amrit" />
+		
+		            <TableRow
+		                android:id="@+id/tableRow7"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content" >
+		
+		                 <TextView
+		                    android:id="@+id/textView8"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:gravity="center"
+		                    android:shadowColor="@color/black"
+		                    android:shadowRadius="3"
+		                    android:text="@string/amrit"/>
+		
+		            </TableRow>
+		            
+		            <ImageView
+		                android:id="@+id/imageView8"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_gravity="center"
+		                android:paddingTop="15dp"
+		                android:src="@drawable/john" />
+		
+		            <TableRow
+		                android:id="@+id/tableRow9"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content" >
+		
+		                 <TextView
+		                    android:id="@+id/textView10"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:gravity="center"
+		                    android:shadowColor="@color/black"
+		                    android:shadowRadius="3"
+		                    android:text="@string/john" />
+		
+		            </TableRow>                
+		            
+		              <ImageView
+		                android:id="@+id/imageView11"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_gravity="center"
+		                android:paddingTop="15dp"
+		                android:src="@drawable/kyle" />
+		
+		            <TableRow
+		                android:id="@+id/tableRow11"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content" >
+		
+		                 <TextView
+		                    android:id="@+id/textView11"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:gravity="center"
+		                    android:shadowColor="@color/black"
+		                    android:shadowRadius="3"
+		                    android:text="@string/kyle" />
+		
+		            </TableRow>      
+		            
+		            <ImageView
+		                android:id="@+id/imageView13"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_gravity="center"
+		                android:paddingTop="15dp"
+		                android:src="@drawable/sean" />
+		
+		            <TableRow
+		                android:id="@+id/tableRow13"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content" >
+		
+		                 <TextView
+		                    android:id="@+id/textView13"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:gravity="center"
+		                    android:shadowColor="@color/black"
+		                    android:shadowRadius="3"
+		                    android:text="@string/sean" />
+		
+		            </TableRow>  
+		            
+		            <ImageView
+		                android:id="@+id/imageView15"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_gravity="center"
+		                android:paddingTop="15dp"
+		                android:src="@drawable/todd" />
+		
+		            <TableRow
+		                android:id="@+id/tableRow15"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content" >
+		
+		                 <TextView
+		                    android:id="@+id/textView15"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:gravity="center"
+		                    android:shadowColor="@color/black"
+		                    android:shadowRadius="3"
+		                    android:text="@string/todd" />
+		
+		            </TableRow>  
+		
+		        </LinearLayout>
+		    </ScrollView>
+		     <Button
+				        android:id="@+id/buttonCloseCredits"
+				        android:layout_width="fill_parent"
+        				android:layout_height="40dp"
+            			android:layout_alignParentBottom="true"
+            			android:background="@drawable/btn_blue"
+				        android:text="@string/close"
+				        android:textColor="@color/white"/>
+</RelativeLayout>
